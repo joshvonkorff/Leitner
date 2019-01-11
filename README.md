@@ -1,6 +1,6 @@
 ## How to use the Leitner csv files
 
-The purpose of this file is to help you learn and memorize some common Python functions used for data science.  It is essentially a set of flashcards.
+The purpose of these files is to help you learn and memorize some common Python functions used for data science.  It is essentially a set of flashcards.
 
 Of course, memorizing these functions does not substitute for learning what they mean and practicing their use; for this, you will need a good course or program in data science.  (I am learning through the K2 program.)
 
