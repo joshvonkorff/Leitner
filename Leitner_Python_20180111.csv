@@ -1,0 +1,376 @@
+,,,
+Topic,#,Query,Answer
+Aggregation,1,"Result of sum([True, True, False])",2
+Aggregation,2,Count a list,len(lst)
+Aggregation,3,Sum of a list,sum(lst)
+Aggregation,4,Minimum of a list,min(lst)
+Aggregation,5,Maximum of a list,max(lst)
+Aggregation,6,Any of a boolean list are True,any(lst)
+Aggregation,7,All of a boolean list are True,all(lst)
+Aggregation,8,Mean of a list,no standard function
+Aggregation,9,Variance of a list,no standard function
+Aggregation,10,Standard deviation of a list,no standard function
+Aggregation,11,Count of a numpy array,"arr.size (# elts), arr.shape (each dimension; if 1D, return a 1D tuple)"
+Aggregation,12,Sum of a numpy array,np.sum(arr)
+Aggregation,13,Minimum of a numpy array,np.min(arr) (or arr.min())
+Aggregation,14,Maximum of a numpy array,np.max(arr) (or arr.max())
+Aggregation,15,Any of a boolean array are True,np.any(arr) (or arr.any())
+Aggregation,16,All of a boolean array are True,np.all(arr) (or arr.any())
+Aggregation,17,Mean of a nump array (2 ways),"np.mean(arr), np.average(arr) # the latter can do a weighted mean"
+Aggregation,18,Variance of a numpy array,np.var(arr)
+Aggregation,19,Standard deviation of a numpy array,np.std(arr)
+Aggregation,20,Median of a numpy array,np.median(arr)
+Aggregation,21,Index of minimum value in a numpy array,"np.argmin(arr, axis=None) or arr.argmin(axis=None) - flattened if no axis"
+Aggregation,22,Index of maximum value in a numpy array,"np.argmax(arr, axis=None) or arr.argmax(axis=None) - flattened if no axis"
+Aggregation,23,"Meaning of axis = 0, 1, 2, … in numpy and pandas functions","axis = 0 causes the result of the operation to be a row. axis = 1 causes the result to be a column. In general, axis = N causes the result to be shaped like the set of all elements that have a particular value on axis N"
+Aggregation,24,Count rows in a DataFrame (2 ways),"len(df.index), df.shape[0]"
+Aggregation,25,Count columns in a DataFrame (2 ways),"len(df.columns), df.shape[1]"
+Aggregation,26,Sum rows in a DataFrame,df.sum(axis = 0)
+Aggregation,27,Sum columns in a DataFrame,df.sum(axis = 1)
+Aggregation,28,Minimum in a DataFrame,df.min(axis = 0 or 1)
+Aggregation,29,Maximum in a DataFrame,df.max(axis = 0 or 1)
+Aggregation,30,Mean in a DataFrame,df.mean(axis = 0 or 1)
+Aggregation,31,Variance in a DataFrame,df.var(axis = 0 or 1)
+Aggregation,32,Standard deviation in a DataFrame,df.std(axis = 0 or 1)
+Aggregation,33,Median in a DataFrame,df.median(axis = 0 or 1)
+Aggregation,34,Mode in a DataFrame,df.mode(axis = 0 or 1)
+Aggregation,35,Percentile in a DataFrame,"df.quantile(q = 0.5, axis = 0 or 1) # works for any q in [0, 1]; returns the value at the q *100'th percentile"
+Aggregation,36,Index of minimum value in a DataFrame,df.idxmin(axis = 0 or 1)
+Aggregation,37,Index of maximum value in a DataFrame,df.idxmax(axis = 0 or 1)
+Aggregation,38,Group a DataFrame by column ‘col’ and count each column’s non-missing values in each group,df.groupby('col').count()
+Aggregation,39,Group a DataFrame by column ‘col’ and count the number of rows in each group,df.groupby(‘col’).size()
+Aggregation,40,Group a DataFrame by column ‘col’ and find the mean in each group,df.groupby('col').mean()
+Aggregation,41,Group a DataFrame by column ‘col’ and find the sum in each group,df.groupby('col').sum()
+Aggregation,42,"Median Absolute Deviation of a Series s. This is an alternative to the standard deviation. The median of a standard normal is about 2/3, while the std is 1.",abs(s - s.median()).median()
+"Apply, Map",1,Create a column by applying fun to each row of df,"df.apply(fun, axis = 1) # returns a Series whose index is df’s index"
+"Apply, Map",2,Create a row by applying fun to each column of df,"df.apply(fun, axis = 0) # returns a Series whose index is df’s columns"
+"Apply, Map",3,"Apply fun to each row of df, passing 1, 2, ar=3 to fun as args","df.apply(fun, axis = 0, args=(1, 2), ar=3)"
+"Apply, Map",4,Two ways of applying fun to each row of df. How they differ?,"df.apply(fun, axis = 0) and df.agg(fun, axis = 0); I’m not sure they differ"
+"Apply, Map",5,Create a new DF by applying fun to each element of df,df.applymap(fun)
+"Apply, Map",6,"After grouping by ‘col’, within each group, apply fun to each other column to find the representative value of that other column",df.groupby('col').agg(fun)
+"Apply, Map",7,"After grouping by ‘col’, within each group, apply a different fun to each col to find representative values of each col","df.groupby('col').agg({'col2': 'fun', ‘col3': ‘fun2'}) # note ‘fun’ can be a string or an actual function"
+"Apply, Map",8,"After grouping by ‘col’: within each group, apply multiply functions to a single column, producing two output columns","df.groupby(‘col').agg({'col2': ['fun1', 'fun2']})"
+"Apply, Map",9,Does agg function (on DFGroupBy) skip over “None” entries?,"“min” or “max” called as a string will skip over “None” entries, while user-defined functions will not."
+"Apply, Map",10,"On a DFGroupBy, call fun on each whole group; fun takes a DF as an argument. How are the group outputs combined?","df.groupby(‘col’).apply(fun) # If output is a scalar, creates a Series from them. If output is a Series, creates a DF from them If output is a DF, concatenates the DFs into a bigger DF."
+"Apply, Map",11,Apply fun to each elt of iterable to make a new iterable,"map(fun, iterable) # This makes a map. You must apply list() to get a list."
+"Apply, Map",12,Include each elt of iterable where fun(elt) is True,"filter(fun, iterable) # This makes a filter. You must apply list() to get a list."
+Clustering,1,Relationship between sklearn and scipy,"sklearn builds a wrapper on top of the scipy clustering analysis tools
+sklearn is more convenient, while the scipy implementation offers more control"
+Clustering,2,Elbow method for finding the number of clusters,"Find the 2nd derivative of some evaluation measure, such as the Silhouette coefficient [or inertia?], and choose the number of clusters that maximizes it."
+Clustering,3,Use k-means to fit an array of samples (arr),"kmeans_model = sklearn.cluster.KMeans(n_clusters=?, max_iter=?, n_init=?, init=‘random’).fit(arr) # km is the model"
+Clustering,4,k-means: get information about cluster centers,kmeans_model.cluster_centers_ # Each row is a cluster center and each column is a feature
+Clustering,5,k-means: get information about which sample is in which cluster,"kmeans_model.labels_ # Its length is the number of samples, and its entries are cluster ids"
+Clustering,6,Fact: what is the “inertia” of a cluster?,It’s the sum of the squared distances to the centroid.
+Clustering,7,"Fact: what is DBSCAN?
+(This might be better off in the glossary)","# Description of DBSCAN from Wikipedia.  DBSCAN is a clustering algorithm.
+# A point p is a ""core point"" if at least ""minpts"" points are within a distance ""epsilon.""  Selecting the values of minpts and epsilon may be tricky.
+One way to select epsilon is to look at all pairs of data points and find peaks in the distribution of distance.  The first peak represents some sort of ""small cluster size.""  Epsilon could be some fraction (30%-100%) of the first peak.
+# A point q is ""reachable"" from p if there is a path of core points, each leap being a distance epsilon or less, from p to q.  q itself need not be a core point, but p must be.
+# All points reachable from the same core point form a cluster.
+# All points not reachable from any core point are ""outliers."
+Clustering,8,Fact: what is “ground truth” in clustering?,"# ""ground truth"" refers to objectively demonstrable accuracy in supervised learning. For instance, to calculate the purity score in clustering, we must know the “true” classification of the samples and then find the largest intersection between a given cluster and any “true” cluster."
+Clustering,9,k-means: show list of distances to clusters,kmeans_model.transform(arr) # I think you need both the model and the array. Not sure why. Doesn’t the model contain all the array’s information already?
+Data tabulation and description,1,Create a new series that counts how many of each value were in the original,s.value_counts() # The indices of the output are the values of the original; the values of the output are the counts of those values.
+Data tabulation and description,2,Count the number of series elements in a set of ranges.,"pd.cut(s, bins=num_bins or [e1, e2, e3, …]) # the output Series has categorical indices with values like “(e1, e2]” and the same indices as the original. Numbers at the edge are put in the _lower_ group."
+Data tabulation and description,3,Make arrays(s) that are a histogram of another array,"count, division = np.histogram(arr, bin=num_bins or [e1, e2, e3, …]) # count is a list of values, division is a list of num_bins + 1 edges. Numbers exactly on the edge are grouped with the _higher_ bin. np.histogram can use various methods to decide bin edges by itself."
+Data tabulation and description,4,Two ways to plot histograms from a DataFrame. (And the difference between them.),"df.hist(column=col or [col1, col2, …], bins = num_bins) df.plot.hist(bins=num_bins) # The difference is that if you ask them to plot multiple columns, df.hist will plot a separate axes for each column of df, while df.plot.hist puts them all on the same axes."
+Data tabulation and description,5,Plot a histogram from an array.,"plt.hist(arr, bins=num_bins or [e1, e2, e3, …]) # Numbers exactly on the edge are grouped with the _higher_ bin. To make a stacked histogram, pass a list of arr’s and set stacked=True"
+Data tabulation and description,6,A list of the possible values and a list of their frequencies,"np.unique(arr, return_counts=True)"
+Data tabulation and description,7,The value of the n’th bin is the number of n’s in the original list,"np.bincount(arr) # i.e. np.bincount([2, 3]) would be [0, 0, 1, 1]"
+Data tabulation and description,8,"A 2D tabulation of all pairs (x, y) in two Series of the same length","pd.crosstab(Series1, Series2) returns a DataFrame with row and column labels set to the values of Series1 and Series2."
+Data tabulation and description,9,"A generalization of a 2D tabulation that (1) works on all columns of a DF, not just two Series, (2) can do sums and averages, not just counts.","pd.pivot_table(df, values = 'D', index=['A', 'B'], columns=['C'], aggfunc=np.sum) # the index will be pairs of items in columns A and B # the columns will be items in column C # each cell contains the sum of all D values in the corresponding rows # setting a dictionary as the aggfunc, such as {‘D’: np.sum, ‘E’: np.average} or {‘D’:[np.sum, np.average]}, will create an additional level of the columns in the output.  ALTERNATIVELY: df.pivot_table(values = 'D', index=['A', 'B'], columns=['C'], aggfunc=np.sum)"
+Data tabulation and description,10,"For each column, print the number of non-null values and the data type",df.info()
+Data tabulation and description,11,"For each column, print count, mean, std, min, percentiles 25, 50, 75, and max.","df.describe() # You can make it print out other percentiles, e.g. percentiles=[95]"
+Data tabulation and description,12,"Show the type(s) of a DataFrame, Series, or numpy array","DataFrame: df.dtypes
+Series: s.dtype or s.dtypes
+numpy array: arr.dtype # all of these will just return a single type, or one for each column in the case of df"
+Date and time,1,datetime: Why are there separate classes for timedeltas and datetimes?,We can’t easily add a month or a year to a time. Is 2/29/2016 plus one year equal to 2/28/2017 or 3/1/2017?
+Date and time,2,datetime: Initializing vs. reading a timedelta,"datetime.timedelta(days=1) can also be initialized with weeks, hours, minutes, etc. but it’s stored in the form: days, seconds, microseconds (e.g. t1.days)"
+Date and time,3,datetime: Arithmetic allowed with timedelta,"Can be added or subtracted from datetimes and from other timedeltas, and can be multiplied or divided by integers and floats"
+Date and time,4,datetime: To define a datetime,"dt.datetime(2018, 5, 25, hour=10, minute=20, second=5)"
+Date and time,5,datetime: The current date and time,dt.datetime.now()
+Date and time,6,datetime: All-purpose parser,"dateutil.parser.parse(‘March 14, 1593’) This parser is not perfect. It parses 3/14/50 as 2050 rather than 1950"
+Date and time,7,datetime: Precise parser,"dt.datetime.now().strftime(“%B %d, %Y”) => ‘May 25, 2018’ dt.datetime.strptime(‘May 25, 2018’, “%B %d %Y”) => a datetime https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior
+http://strftime.org"
+Date and time,8,np.timedelta64: convert to seconds,"td / np.timedelta64(1, ’s’)"
+Date and time,9,numpy time: group by month in pandas,"df.groupby(pd.Grouper(freq=‘M’)) or df.resample(‘M’) # In both cases, you need to add an aggregation function"
+Date and time,10,pandas TImestamp,"In pandas, there is a type called:
+
+pandas._libs.tslib.Timestamp or pandas.Timestamp
+which is described here:
+https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Timestamp.html
+
+The Timestamp can access its components like: ts.year, ts.month, ts.dayofweek"
+Date and time,11,NOTE,The material here about numpy and pandas time is pretty weak.  It might be good to flesh it out some more?
+File system,1,What to import for file system,import os
+File system,2,Change directory,os.chdir(path)
+File system,3,What directory are we in now?,os.getcwd()
+File system,4,List the contents of a folder,os.listdir(path='.')
+Input / output,1,Basic file I/O command,"with open('file.txt', 'r') as file:
+    for line in file:"
+Input / output,2,Read a CSV file into lists,"reader = csv.reader(file, delimiter = ',')
+    for lst in reader:"
+Input / output,3,Read a CSV file into a DataFrame,"df = pd.read_csv(""filename.csv"", index_col=None, parse_dates=False)
+# index_col will become the index of the DF; parse_dates=True treats the index column's string as a date string by default, and dateutil.parser.parse is called to do the parsing."
+Input / output,4,Read Excel into DataFrame,"df = pd.read_excel(""filename.xlsx"", index_col = None, parse_dates=False)"
+Input / output,5,Save a DF as a CSV file,"df.to_csv(""filename.csv"")"
+Input / output,6,Save a DF as Excel,"df.to_excel(""filename.xlsx"", optional_sheet_name)"
+Input / output,7,Pretty print,"pprint.pprint(obj)  # Prints complex objects, such as dictionaries, in a ""pretty"" way"
+Input / output,8,Format strings: basic,"""{} {}"".format(1, 2)"
+Input / output,9,Format string: reverse order,"""{1} {0}"".format(1, 2)"
+Input / output,10,"Format string: display format, __str__, and __repr__ output, then __repr__ using ASCII only","""{0} {0:s} {0:r} {0:a}"".format(obj)"
+Input / output,11,Format: pad 'test' with six blanks on left,"""{:>10}"".format('test')"
+Input / output,12,Format: pad 'test' with six blanks on right,"""{:10}"".format('test') or ""{:<10}"".format('test')"
+Input / output,13,Format: pad 'test' with six underscores on right,"""{:_<10}"".format('test')"
+Input / output,14,Format: pad 'test' with three blank spaces on either side,"""{:^10}"".format('test')"
+Input / output,15,"Print ""1000"" adding thousands separator","""{:,}"".format(1000)"
+Input / output,16,"Truncate ""xylophone"" to ""xylop""","""{:.5}"".format(""xylophone"")"
+Input / output,17,"Truncate and pad: ""xylop     ""","""{:10.5}"".format(""xylophone""}  # Note, it must be in this order.  {:.5<10} doesn't work"
+Input / output,18,Asserting a type - throw error if wrong type,"""{:d}"" - integer, ""{:f}"" - float"
+Input / output,19,Format: 42 on left with two zeroes,"""{:04d}"".format(42)   # It will work without the ""d"""
+Input / output,20,"Format: + if positive, - if negative","""{: d}"".format(42)"
+Input / output,21,Use dictionary keys - way 1,"data = {""first"": ""Arthur"", ""last"": ""Dent""}   
+""{first} {last}"".format(**data)"
+Input / output,22,Format with variables,"""{first} {last}"".format(first=""Arthur"", last=""Dent"")"
+Input / output,23,Use dictionary keys - way 2,"""{d[first]} {d[last]}"".format(d=data)"
+Input / output,24,Format with list indices,"data = [""Arthur"", ""Dent""]
+""{d[0]} {d[1]}"".format(d=data)"
+Input / output,25,Format a datetime,"""{:%Y-%m-%d %H:%M}"".format(datetime(2001, 2, 3, 4, 5)}
+2001-02-03 04-05"
+Input / output,26,Specify format style components dynamically,"""{:{align}{width}}"".format(""test"", align=""^"", width=10)"
+Misc / utility,1,Append an element to a list,lst.append(elt)
+Misc / utility,2,Add dict2's key-value pairs to dict1,dict1.update(dict2)
+Misc / utility,3,read a pickle file into a DF,pd.read_pickle(filename)
+Misc / utility,4,write DF to pickle file,"pd.to_pickle(df, filename)"
+Misc / utility,5,write an object into a pickle,"pickle.dump(data, file)  # with open(filename, '...') as file"
+Misc / utility,6,load an object from a pickle,data = pickle.load(file)
+Misc / utility,7,time a command,%timeit [...command...]
+Misc / utility,8,"iterator that returns (0, item0), (1, item1) from other iterator","enumerate(iter) # produces an iterator that returns (0, item0), (1, item1), etc. for items in iter"
+Misc / utility,9,compute the distances between every pair of points in mat1 vs. mat2,"scipy.spatial.distance.cdist(mat1, mat2, 'euclidean')"
+Misc / utility,10,compute the distance between every pair of points in mat,"scipy.spatial.distance.pdist(mat, 'euclidean') # or 'cityblock', 'cosine', 'chebyshev'"
+Misc / utility,11,bitwise not,~
+Misc / utility,12,bitwise and,&
+Misc / utility,13,bitwise or,|
+Null and NaN,1,Two ways of getting nan,"np.nan, np.NaN"
+Null and NaN,2,Checking for nan in Series,"s.isnull(), s.isna() # aliases of each other, returns a boolean same-sized object indicating if values are nan or None"
+Null and NaN,3,Checking for nan in DF,"df.isnull(), df.isna() # aliases of each other, returns a boolean same-sized object indicating if values are nan or None"
+Null and NaN,4,Checking for not nan in Series,s.notna() # returns a boolean same-sized object indicating if values are nan or None
+Null and NaN,5,Checking for not nan in DF,df.notna() # returns a boolean same-sized object indicating if values are nan or None
+Null and NaN,6,Checking for nan in np array,np.isnan(arr) # returns a boolean same-sized object indicating if values are np.nan
+Null and NaN,7,Test if variable is None,"if variable is None: # if variable == None will also work, but is inefficient"
+Null and NaN,8,Return a Series with NA values removed,s.dropna(inplace=False)
+Null and NaN,9,Return a DF with NA values removed,"df.dropna(axis=0, inplace=False)"
+Null and NaN,10,Fill NA/nan values with the specified values,"s.fillna(value=value, method=None, inplace=False)
+df.fillna(value=vaue, method=None, axis=None, inplace=False)"
+,,Number of dimensions of array,arr.ndim OR len(arr.shape)
+Numpy specific,1,Range of integers 0 to N-1,np.arange(N)
+Numpy specific,2,e**x for x in arr,np.exp(arr)
+Numpy specific,3,two ways to change the shape of an array,"np.reshape(arr, newshape) # newshape is an int or tuple of ints giving the new shape.  If one int in tuple is -1, that value is to be inferred
+arr.reshape(newshape)"
+Numpy specific,4,return a diagonal matrix,np.diag(1D_list_of_diag_values)
+Numpy specific,5,index a numpy array,"arr[row, col]"
+Numpy specific,6,"select the i1th, i2th, etc. elements of a 1D array","arr[[i1, i2, ...]]"
+Numpy specific,7,generate a 1D array from 2D,"arr[([i1, i2], [j1, j2])]   # Generate a 1D array from a 2D array; the first element is (i1, j1) of arr, the second is (i2, j2), and so on."
+Numpy specific,8,What does arr > 10 do?,"Generate an array of Trues and Falses, ""broadcasting"" the 10 to compare it to every element of arr"
+Numpy specific,9,Find elements of arr that are > 10,arr[arr > 10]
+Numpy specific,10,array of absolute values,np.abs(arr) or np.abs(num) to get a single absolute value
+Numpy specific,11,How does np.where work?,"np.where(array_of_Ts_and_Fs, arr1, arr2) # where the condition is True, an element is taken from arr1; where false, arr2.  If 2nd and 3rd arg are not given, returns of 1D array of indices where True.  If 1st arg is 2D, returns a tuple of arrays - the row and column indices.'"
+Numpy specific,12,Logical and between arrays of Ts and Fs,arr1 & arr2
+Numpy specific,13,Logical or between arrays of Ts and Fs,arr1 | arr2
+Numpy specific,14,"Array of ""size"" evenly spaced numbers","np.linspace(x1, x2, size) # ""size"" numbers ranging from x1 to x2"
+Numpy specific,15,How does meshgrid work?,"x, y = np.meshgrid(xarr, yarr) # x becomes xarr repeated len(yarr) times as rows.  y is yarr repeated len(xarr) times as cols.  These coordinates can be used in, for instance, plt.contour()"
+Numpy specific,16,How does ravel work?,"np.ravel(arr, order=""C"") # makes an array 1D, by default (order=""C"") listing the first row, then the second, etc."
+Numpy specific,17,Append rows of arr2 to rows of arr1.  This creates an array with a greater number of rows.  (TWO WAYS),"np.concatenate((arr1, arr2), axis=0) # If arr1 and arr2 are 1D arrays, they are simply concatenated into a single, longer 1D array.
+np.r_[arr1, arr2] # Note that r_ and c_ use brackets not parentheses."
+Numpy specific,18,How does slice notation (real and imaginary) work with np.r_?,"np.r_[ ] lets you insert slice notation directly, like np.r_[0:2, 8:10] resulting in array([0, 1, 8, 9]).  You can also use imaginary step sizes, which is interpreted roughly like linspace; np.r_(-1:1:3j] becomes array([-1, 0, 1]).  Note that r_ and c_ use brackets not parentheses."
+Numpy specific,19,Append columns of arr2 to columns of arr1.  This creates an array with a greater number of columns.,"np.concatenate((arr1, arr2), axis=1) 
+np.c_[arr1, arr2] #If arr1 and arr2 are 1D, it treats them as if they were 2D columns, so this is basically ""zipping"" the two arrays."
+Numpy specific,20,Dot product or matrix multiplication,"x.dot(y) # matrix multiplication or dot product
+np.matmul(x, y) # matrix multiplication (preferred)
+x @ y # matrix multiplication (Python 3.5)"
+Numpy specific,21,"p-norm (L1, L2, or Lp)","np.linalg.norm(arr, ord=p) # (sum_i of abs(x_i)^p)^(1/p)"
+Numpy specific,22,"Assign 3 different variables to equal the values in a 1D array of shape (1, 3)","x, y, z = arr"
+Numpy specific,22,Cast arr from boolean to int,arr.astype(np.int)
+Pandas-specific,1,Declare a DF from list of lists,"df = pd.DataFrame([list_for_row1, list_for_row2], columns = [""col1"", ""col2""])"
+Pandas-specific,2,Declare a DF from np array,"df = pd.DataFrame(numpy_2d_array, columns = ['col1', 'col2']"
+Pandas-specific,3,Declare a DF from dictionary,"df = pd.DataFrame({'col1': list_for_col1, 'col2': list_for_col2})"
+Pandas-specific,4,Declare a DF from Series,df = s.to_frame('name') # I thnk 'name' becomes the new column's name
+Pandas-specific,5,Get the Nth row of a DF (2 ways),"df.iloc[N] or df.iloc[N, :]"
+Pandas-specific,6,Get the row with label as index,df.loc[label]
+Pandas-specific,7,DF multiple rows,"df.loc[[lab1, lab2]]"
+Pandas-specific,8,DF subset of rows label = 0,df[df.label == 0]
+Pandas-specific,9,DF col with label (3 ways),"df[label] or df.label or df.loc[:, label]"
+Pandas-specific,10,DF multiple columns,"df[[lab1, lab2]] or df.loc[:, [lab1, lab2]]"
+Pandas-specific,11,DF columns and rows,"df.iloc[4:-1, 2:5]  or df.iloc[0, 0]  # can use slicing"
+Pandas-specific,12,np array with DF #s only,df.values
+Pandas-specific,13,Boolean where DF col matches list,df.col.isin([ ... list ... ])
+Pandas-specific,14,DF multiple cols match multiple lists,"df.isin({'col1': [ ... list ... ], 'col2': [ ... list2 ... ]})   # Returns a df of booleans showing where cols match lists"
+Pandas-specific,15,Concatenate two DFs,"pd.concat([df1, df2])  # concatenate two DFs vertically, adding the second as new rows to the first"
+Pandas-specific,16,Group DF by column,df.groupby('col')
+Pandas-specific,17,Group DF by calling fun on each value in index,df.groupby(fun)
+Pandas-specific,18,Resample DF index hourly,"df.resample('H"")  # you need to apply an aggregation function.  http://pandas.pydata.org/pandas-docs/stable/timeseries.html#offset-aliases"
+Pandas-specific,19,Arithmetic on dfs or Series,"df1.sub(df2), df1.add(df2), df1.multiply(df2), df1.divide(df2), s1.sub(s2), etc."
+Pandas-specific,20,Drop two columns in df,"df.drop([lab1, lab2], axis=1)  # drop columns 1 and 2"
+Pandas-specific,21,Rolling sum of df with window length of N,"df.rolling(N).sum() # you can use special window types, or a rolling mean"
+,,Replace items in a Series s with integer labels from 0 to N-1,"labels, uniques = s.factorize() OR labels, uniques = pd.factorize(s) # labels is the relabeled s; uniques is an index with the unique values of s, in the appropriate order."
+Regression,1,some imports for regression,"import statsmodels.api as sm
+import statsmodels.formula.api as smf
+from sklearn import linear_model"
+Regression,2,Formula symbols for regression,"- for removing terms
+: for interaction
+* for crossing (interaction and both terms individually)
+I() for as-is: (x+y)**2 produces x + y + x : y, I((x+y)**2) produces just (x+y)**2"
+Regression,3,sm: model predicts s using DF and constant Intercept,"model = sm.OLS(s, df)"
+Regression,4,sm: model predicts df.y from df.x and constant Intercept,"model = sm.OLS.from_formula('y ~ x', df) # df has columns x and y"
+Regression,5,"sm: model 2 predictors, x**2 and y","model = sm.OLS.from_formula('z ~ I(x**2) + y', df)    # Without the I(), I think it will find cross terms involving x and x, which is just x."
+Regression,6,"sm: model 3 predictors, x, y, and x*y","model = sm.OLS.from_formula('z ~ x * y', df)"
+Regression,7,"sm: model 1 predictor, just x * y","model = sm.OLS.from_formula('z ~ x : y', df)"
+Regression,8,"Using sm, do regression on model; get summary, rsquared, coefficients, and p values for each coefficient","regr = model.fit()
+regr.summary()
+regr.rsquared
+regr.params
+regr.pvalues"
+Regression,9,sm: regression predict using DF of indept variables,regr.predict(X_values) # X_values is the df of indep't variables; creates a Series of predicted y values
+Regression,10,smf: ANOVA with x as categorical variable,"model = smf.ols('y ~ x', data=df).fit()  # the number of distinct values of x is the number of groups in the ANOVA"
+Regression,11,sm: ANOVA statistics table for an ANOVA model,"table = sm.stats.anova_lm(model, typ=2) # this gives some statistical information"
+Regression,12,sm: Plot fitted values (predicted dependent variable) vs. residuals (actual dependent minus predicted dependent),"import sns
+fitted_values = pd.Series(regr.fittedvalues, name=""Fitted Values"")
+residuals = pd.Series(regr.resid, name=""Residuals"")
+sns.regplot(fitted_values, residuals, fit_reg=False)"
+Regression,13,"sklearn: linear regression estimator, y intercept, and coefficients","lin = sklearn.linear_model.LinearRegression()
+lin.intercept_
+lin.coef_"
+Sorting,1,Sort along last axis of array,np.sort(arr)
+Sorting,2,Sort along first axis of array,"np.sort(arr, axis=0)"
+Sorting,3,Sort flattened version of array,"np.sort(arr, axis=None)"
+Sorting,4,"Like sort (on an array), but returns an array of indices showing the sort order",np.argsort(arr)
+Sorting,5,Sort a df according to a column (returns the df),"df.sort_values('by_col', axis=0, ascending=True/False)"
+Sorting,6,Sort a df according to a row (returns the df),"df.sort_vaues('by_index', axis=1, ascending=True/False)"
+Sorting,7,"Sort an iterable by fun, return a sorted list","sorted(iter, key=fun)"
+Sorting,8,"Sort a list in place, by fun",lst.sort(key=fun)
+Statistics,1,"Uniform random in [0, 1)","np.random.random(size=size)  # size is an integer or an ntuple for the shape, or not give => return 1 value
+np.random.rand(a, b, c) # shape (a, b, c)"
+Statistics,2,Uniform rand basic library,"random.uniform(low, high) # returns 1 value"
+Statistics,3,Uniform random int,"np.random.randint(a, high=None, size=size) # rand int in [0, a) or [a, high), size uses the usual np.random convention"
+Statistics,4,Uniform int rand basic lib,"random.randint(low, high) # returns 1 value"
+Statistics,5,Exponential random dist,"np.random.exponential(scale=mean, size=size)  # size is an integer or an ntuple for the shape, or not give => return 1 value"
+Statistics,6,Exp rand basic library,"random.expovariate(lambd=mean) # exponential distribution, returns a single value"
+Statistics,7,Normal random dist,"np.random.normal(loc=mean, scale=sigma, size=size) # size is an integer or an ntuple for the shape, or not give => return 1 value
+np.random.randn(a, b, c) # shape (a, b, c), standard normal"
+Statistics,8,Normal rand basic library,"random.normalvariate(mu, sigma) # returns 1 value"
+Statistics,9,Chisquare random dist,"np.random.chisquare(df=degrees_of_freedom, size=size) # size is an integer or an ntuple for the shape, or not give => return 1 value"
+Statistics,10,Random elt of array,"np.random.choice(arr, size=None, replace=with_replacement?(True), p=prob_vector(None)) # size uses np.random convention"
+Statistics,11,Random elt basic library,"random.sample(arr, k) # returns k items from arr, without replacement"
+Statistics,12,Shuffle array along first axis,np.random.shuffle(arr) # in place
+Statistics,13,Shuffle basic library,random.shuffle(x) # in place.  requires a 1-d sequence
+Statistics,14,"Shuffle array, make copy",np.random.permutation(x) # makes a copy
+Statistics,15,"Shuffle arange(N), copy",np.random.permutation(N)
+Statistics,16,Seed the random generator,np.random.seed(seed=None) # seed is a nonnegative int or a 1-d array of these
+Statistics,17,Multivariate normal,np.random.multivariate_normal(...)
+Statistics,18,num random rows of df,df.sample(num)
+Statistics,19,Chi square test of indpce,"chi2, p, dof, ex = scipy.stats.chi2_contingency(table) # ex = expected values (2 dims), chi2 = chi squared value
+Assumes that 80% of the expected values should be 5 or greater."
+Statistics,20,scipy uniform sample,"scipy.stats.uniform.rvs(size=size, loc=start, scale=end, random_state = None) # size follows numpy convention (int or shape)"
+Statistics,21,scipy uniform cumul dist,"scipy.stats.uniform.cdf(x=cutoff_value, loc=start, scale=end) # prob that rv's value is less than x"
+Statistics,22,scipy uniform rv val from p,"scipy.stats.uniform.ppf(q=probability_cutoff, loc=start, scale=end) # value for which the rv is less than this value with prob q"
+Statistics,23,scipy uniform pdf,"scipy.stats.uniform.pdf(x, loc=start, scale=end) # finds the value of the pdf at point x"
+Statistics,24,scipy confidence interval,"scipy.stats.norm.interval(alpha, df=df, loc=sample_mean, scale=sigma) # for a normal distribution"
+Statistics,25,List of all scipy rand distribs,"scipy.stats.norm, scipy.stats.binom, scipy.stats.binom, scipy.stats.geom, scipy,stats,expon, scipy.stats.poisson, scipy.stats.multivariate_normal(means, cov), scipy.stats.t"
+Statistics,26,scipy prob mass function,"scipy.stats.binom.pmf(k=8, n=10, p=0.8)"
+Statistics,27,one sample t test,"scipy.stats.ttest_1samp(a=sample_data, popmean=population_mean)
+# Test: does the sample mean differ from popmean?
+# Alternatively, compute the t statistic manually from the data and then use stats.t.cdf to find the p value."
+Statistics,28,two sample t test,"stats.ttest_ind(a=data1, b=data2, equal_var=False) # Test: do the means differ?
+# equal_var=True means we assume the samples have equal variance"
+Statistics,29,paired t test (two paired samples),"stats.ttest_rel(a=before, b=after) # Test: is the value changing after the interventions?  ""rel"" is for ""related"" samples
+ This differs from an ordinary 2-sample t test in that we can meaningfully talk about the ""same"" item before and after #"
+Statistics,30,chisquare test for counts with known expected counts,"stats.chisquare(f_obs = observed, f_exp = expected) # arrays of observed and expected counts; test whether observed
+differs from expected.  This is used for counts of categorical data (i.e. 3 dogs and 4 cats; but I expected 2 dogs and 5 cats.)"
+Statistics,31,Test whether columns and rows are indepedent (counts),stats.chi2_contingency(observed=observed) # test whether column and row counts are independent
+Statistics,32,Test if the means of N arrays are the same,"stats.f_oneway(arr1, arr2, arr3, ...) # This is just a one way ANOVA I think."
+Statistics,33,Test all pairs of means for N arrays,"from statsmodels.stats.multicomp import pairwise_tukeyhsd
+# Tukey's test is a post-hoc test to find the significant differences between multiple means.
+# This comes with some functions to automatically generate a summary and some graphs."
+Statistics,34,correlation of a df,"df.corr() # returns a dataframe with pairwise correlations of columns, exclusing NA / null values"
+Strings,1,iterable into a string,"""x"".join(iter) produces iter[0] + ""x"" + iter[1] + ""x"" + ... where iter[n] must be strings for this to work."
+Strings,2,break apart a string,"""a/b/c"".split(""/"") # produces [""a"", ""b"", ""c""]"
+Visual - df,1,"df plot column A against column B, in blue, transparent","df.plot(x='A', y='B', color='blue', alpha=0.5)"
+Visual - df,2,"df plot column A against B, blue scatter plot","df.plot(x='A', y='B', style='b.')"
+Visual - df,3,df.plot with secondary y,"df.plot(x='A', y='B"", secondary_y=['C']) # plot column C and label the righthand y axis accordingly (on a different scale)"
+Visual - df,4,df bar plot,df.plot(kind='bar') # kind can have many different values for different plot types
+Visual - df,5,All of the 'kinds' of df plots,"hist', 'kde' or 'density' (they are the same), 'area', 'scatter', 'hexbin', 'box', 'pie'"
+Visual - df,6,Instead of 'kind' for df plots (and why use this?),"df.plot.bar(), df.plot.hist() # advantage is that in jupyter notebook, you can type: df.plot.<TAB> and see the complete list"
+Visual - df,7,"df.plot, if no x= and/or y=","If no x=, x values are the index of df; if no y=, y values are every column not used for x (produces multiple plots)"
+Visual - df,8,How to plot df time series,"You must set_index the time series to be the index.  If it needs to be a column again, reset_index or return to the old df."
+Visual - df,9,df stacked bar plot or hist,"df.plot.bar(stacked=True) # a stacked bar plot
+df.plot.hist(stacked=True, bins=20) # a stacked histogram with 20 bins"
+Visual - df,10,plot two dfs on same axes,"ax = df.plot(...)
+df2.plot(..., ax=ax)"
+Visual - df,11,df box and whisker,"df.boxplot(column=""x"", by=""col_to_groupby"") # One plot per ""by"" value.  Returns (ax, lines), I'm not sure of purpose of lines"
+Visual - df,12,df scatter_matrix,pandas.plotting.scatter_matrix(df) # shows N histograms and N * (N-1) / 2 distinct scatter plots
+Visual - plt,13,Contour plot,"plt.contour(x, y, z) # x, y, and z are two dimensional arrays that specify x, y, and z(x, y) at each array location, respectively
+# If you have a function of two variables, x and y, here is how to set up x, y, z:
+x, y = np.meshgrid(np.linspace(x1, x2, Nx), np.linspace(y1, y2, Ny))
+z = func(np.c_[x.ravel(), y.ravel()]) # np.c_ returns an array of pairs
+z = z.reshape(x.shape) # reshapes 1D z to be shaped like x and y"
+Visual - plt,14,show a key to the colors,plt.colorbar() # there is no ax.colorbar(); I think there is one colorbar per figure?  You can specify ax=ax as an argument.
+Visual - plt,15,how to import matplotlib,import matplotlib.pyplot as plt
+Visual - plt,16,"Init matplotlib, keep figure open after cell","%matplotlib notebook # enables some interactive features, you must call plt.figure() if you want a new plot (by default, it will plot on top of the old figure)"
+Visual - plt,17,"init matplotlib, close figure after cell",%matplotlib inline # plots are static images.  New plot automatically with each new cell.
+Visual - plt,18,What does plt.show() do?,"Ordinarily, a figure isn't displayed until the cell has completed its execution.  You can keep tweaking the graph in various ways before showing it.  If you want to show the figure _before_ the cell terminates (say you want to show multiple figures per cell)), you can use plt.show().  I've also seen this used at the end of a cell, but I'm not sure why.  It seems unnecessary."
+Visual - plt,19,"Style / format strings (color, markers, and lines) to pass as arguments to plot function","These can be provided in any order, e.g. ""r-o"" or ""or-""
+colors: r, g, b (red green blue), c, m, y (cyan magenta yellow), k, w (black white)
+Markers: . (point), o (circle), + (plus), x (x), s (square)
+Lines: - (solid line), -- (dashed line), -. (dash dot), : (dotted)"
+Visual - plt,20,get current axis,"fig.gca() or plt.gca(), the latter gets the current axis of the current figure"
+Visual - plt,21,get current figure,plt.gcf()
+Visual - plt,22,clear the axes,"ax.clear() # clear the axes so we don't have to create a new figure, in order to draw a new graph on the same axes"
+Visual - plt,23,clear the current figure,"plt.clf() # clear the current figure so we don't have to create a new figure, in order to draw a new graph on the same figure"
+Visual - plt,24,set the size of a figure,"plt.rcParams['figure.figsize'] = (16, 9)"
+Visual - plt,25,put text on the plot,"ax.text(x=x, y=y, s=""text"", fontsize=14, color=""b"") or plt.text(...)"
+Visual - plt,26,draw arrows attaching text to points on the graph,"ax.annotate(...)  or plt.annotate(...) # this function is complex, and I'm not going to fully document it here."
+Visual - plt,27,Use LaTeX on a plot,"Just type LaTeX into the string, like ""$\theta_1$"""
+Visual - plt,28,x or y axis limits,"ax.set_xlim(xmin, xmax) or plt.set_xlim(...) # same for y"
+Visual - plt,29,x or y axis label,"ax.set_xlabel(label_string) or plt.set_xlabel(...) # same for y
+plt.xlabel(label_string) # same for y.  There is no ax.xlabel()"
+Visual - plt,30,basic plot function,"ax.plot(x, y, 'bo', label=label) or plt.plot(...) # plot arrays x vs. y using blue circle markers.  If a legend is displayed, it will show that blue circle markers correspond to the label."
+Visual - plt,31,plot legend,"ax.legend() or plt.legend() # gets the legend from ""label = ..."" keyword in plot statement.  (For df.plot(), you don't need to call legend(); the labels will automatically display.)"
+Visual - plt,32,scatter plot where points' properties individualized,"ax.scatter(x, y, s=size, c=colors) or plt.scatter(...) # with ax.plot, points are not individualized"
+Visual - plt,33,Error bars on graphs,"ax.errorbar(x=x, y=y, yerr=half_errbar_height, fmt=fmt_string) or plt.errorbar(..) # fmt_string is a style string, like 'bo'"
+Visual - plt,34,Label x or y ticks,"ax.xticks(locs, labels) or plt.xticks(...) # locs = (numerical) locations of ticks, labels = their labels.   Same for y."
+Visual - plt,35,Display image,"ax.imshow(arr) or plt.imshow(...) # show an image, which can have shape (M, N), (M, N, 3), or (M, N, 4) which are RGB or RGB + alpha (transparency)"
+Visual - plt,36,Don't display axis stuff,"ax.axis(""off"") or plt.axis(...) # don't show axis lines, ticks, labels, etc. (as when showing an image)"
+Visual - plt,37,"Set all x, y limits at once","ax.axis(xmin, xmax, ymin, ymax) or plt.axis(...)"
+Visual - plt,38,"Get all x, y limits at once","xmin, xmax, ymin, ymax = ax.axis() or = plt.axis()"
+Visual - plt,39,Save image,"plt.savefig(path, format='png', dpi=300) # there is no ax.savefig, you have to save the whole figure"
+Visual - plt,40,"Plot a grid of subplots, choose which will be the current one (two ways)","ax = plt.subplot(num_horiz, num_vert, cur_num, sharey=ax_prev) # using a grid of num_horiz x num_vert subplots, sets the current to cur_num.
+# E.g. cur_num = 1 is the upper left cell. The current axes is made to share y coordinates with a previously defined axes, ax_prev.  Note its plt.subplot not fig.subplot
+ax = fig.add_subpplot('122')
+# assumes a 1 x 2 array of plots, gets an axes for second one.  plt.subplot is a wrapper for this.  Note it's fig not plt in this case"
+Visual - plt,41,Create a grid of subplots and return an axes for every one,"fig, ((ax1, ax2, ax3), (ax4,ax5,ax6), (ax7, ax8, ax9)) = plt.subplots(3, 3, sharex=True, sharey=True)
+# Note that subplot and subplots are different; the latter creates multiple axes at once.
+# sharex means that all created axes share the same x coordinates; sharey is the same."
+Visual - plt,42,Plot histogram,"ax.hist(arr, bins = 100) or plt.hist(...) # creates a histogram of the array"
+Visual - plt,43,Create plots that take up more than one grid cell,import matplotlib.gridspec as gridspec 
+Visual - plt,44,How to deal with color maps with images or scatter plots,"# The main uses of color maps are (1) with plt.scatter, where you can specify c=arr a list of numbers to map to colors, or
+# (2) imshow, where the in the case of a 2D (M, N) array, numbers for each pixel can be mapped to colors (in which case there is no c=)
+# In both cases, use cmap = 'name of built in color map' or cmap = plt.get_cmap('name')
+# The result will be that the 1D ""c"" or 2D array values are mapped to colors accordingly.  You can also call plt.colorbar()
+# list of color maps: https://matplotlib.org/examples/color/colormaps_reference.html"
+Visual - sea,45,How to import seaborn,import seaborn as sns
+Visual - sea,46,seaborn whitegrid style,sns.set_style('whitegrid')
+Visual - sea,47,seaborn violin plot,"sns.violinplot(x =, y =, hue =, data =, ax = )
+x = categorical, create one plot for each x value
+y = numerical, y-axis of plot, shows histogram bins
+hue = a second categorical variable; plots all combinations of x times hue on x axis
+where x is shown by position and hue is shown by the color of the violin
+data = DataFrame to get the data from
+ax = axes to plot on (optional)
+split = True will split the violin into two hues (if the ""hue"" column has two values)"
+Visual - sea,48,seaborn distplot,"sns.distplot(data_values, rug=True)
+Combines a histogram, kde (kernel density estimate or curve fitting the histogram), and rugplot (each data item is a vertical line attached to the x-axis)."
+Visual - img,49,Remove image noise,"from skimage.io import imread
+img = imread(""file.jpg"")
+from skimage.restoration import denoise_tv_chambolle
+denoised_image = denoise_tv_chambolle(img, weight=?, multichannel=?)
+# This removes noise from an image, which has been read in using imread"
