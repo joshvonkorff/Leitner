@@ -10,7 +10,7 @@ The frequencies were extracted from the Python file in: https://www.kaggle.com/z
 
 4. len - len(lst)
 
-5. __init__ - class initialization function
+5. \_\_init\_\_ - class initialization function
 
 6. join - separator.join(iterable) will use separator in between the elements of the iterable.  E.g. “-”.join(“abc”) will return “a-b-c”.
 
