@@ -38,7 +38,7 @@ The frequencies were extracted from the Python file in: https://www.kaggle.com/z
 
 18. str - cast to string
 
-19. super - used to gain access to methods in a parent or sibling class that have been overwritten in the current class.  For instance, in single inheritance, within a class’s __init__ definition, you could call super().__init__() to call the superclass’s init.  
+19. super - used to gain access to methods in a parent or sibling class that have been overwritten in the current class.  For instance, in single inheritance, within a class’s \_\_init\_\_ definition, you could call super().\_\_init\_\_() to call the superclass’s init.  
 super() can be called:
 (1) without parameters - this is usually adequate.
 (2) as super(SubClassType, object_of_subclass_type), e.g. super(ThisClass, self) since the current class is the subclass of which we are finding the superclass.
@@ -75,7 +75,7 @@ https://realpython.com/python-super/#a-super-deep-dive
 
 34. info - Logger.info(msg) logs a message <msg> on this logger with level INFO.  The purpose of the Logger is to keep track of whatever events the programmer wants it to.
 
-35. main - use def main(): and then if __name__ == __main__: to define a main function and run it.  By defining the main function as a function instead of just putting it under the if block, we make it possible to run main() from elsewhere as well as from the command line.
+35. main - use def main(): and then if \_\_name\_\_ == \_\_main\_\_: to define a main function and run it.  By defining the main function as a function instead of just putting it under the if block, we make it possible to run main() from elsewhere as well as from the command line.
 
 36. Constant - a common named for a user-defined class
 
